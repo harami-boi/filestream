@@ -1,0 +1,19 @@
+version: '3'
+services:
+  my-python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - API_ID=12345
+      - API_HASH=api_hash
+      - BOT_TOKEN=token
+      - BIN_CHANNEL=1234
+      - PORT=8080
+      - FQDN=server_ip
+      - OWNER_ID=user_id
+      - DATABASE_URL=mongodb_uri
+    command: python3 -m Adarsh
+    
