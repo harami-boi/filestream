@@ -7,10 +7,10 @@ services:
     volumes:
       - .:/app
     environment:
-      - API_ID=12345
+      - API_ID=api_id
       - API_HASH=api_hash
       - BOT_TOKEN=token
-      - BIN_CHANNEL=1234
+      - BIN_CHANNEL=bin_channel
       - PORT=8080
       - FQDN=server_ip
       - OWNER_ID=user_id
