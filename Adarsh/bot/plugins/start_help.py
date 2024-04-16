@@ -111,7 +111,7 @@ async def help_handler(bot, message):
         except Exception:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="<i>Something went wrong</i> <b><a href='https://github.com/adarsh-goel'>CLICK HERE FOR SUPPORT </a></b>",
+                text="Something went wrong",
                 disable_web_page_preview=True)
             return
     await bot.send_message(
