@@ -10,7 +10,7 @@ from urllib.parse import quote_plus
 from pyrogram import filters, Client
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from sh_url import shorten_url
+# from sh_url import shorten_url
 
 from Adarsh.utils.file_properties import get_name, get_hash, get_media_file_size
 db = Database(Var.DATABASE_URL, Var.name)
@@ -99,16 +99,19 @@ async def private_receive_handler(c: Client, m: Message):
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
         stream_link = f"{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
         online_link = f"{Var.URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-        urls = shorten_url([stream_link,online_link])
+        # urls = shorten_url([stream_link,online_link])
         msg_text ="""<i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>\n\n<b>📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <i>{}</i>\n\n<b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <i>{}</i>\n\n<b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <i>{}</i>\n\n<b> 🖥WATCH  :</b> <i>{}</i>\n\n<b>⚠️ Nᴏᴛᴇ : LINK WON'T EXPIRE TILL I DELETE</b>"""
 
         await log_msg.reply_text(text=f"**RᴇQᴜᴇꜱᴛᴇᴅ ʙʏ :** [{m.from_user.first_name}](tg://user?id={m.from_user.id})\n**Uꜱᴇʀ ɪᴅ :** `{m.from_user.id}`\n**STREAM URL:** {stream_link}\n**DOWNLOAD URL:** {online_link}", disable_web_page_preview=True,  quote=True)
         await m.reply_text(
-            text=msg_text.format(get_name(log_msg), humanbytes(get_media_file_size(m)), urls[0], urls[1]),
+            text=msg_text.format(get_name(log_msg), humanbytes(get_media_file_size(m)), stream_link, online_link),
+            #text=msg_text.format(get_name(log_msg), humanbytes(get_media_file_size(m)), urls[0], urls[1]),
             quote=True,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("STREAM 🖥", url=urls[0]), #Stream Link
-                                                InlineKeyboardButton('DOWNLOAD 📥', url=urls[1])]]) #Download Link
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("STREAM 🖥", url=stream_link), #Stream Link
+                                                InlineKeyboardButton('DOWNLOAD 📥', url=online_link)]]) #Download Link
+            # reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("STREAM 🖥", url=urls[0]), #Stream Link
+            #                                     InlineKeyboardButton('DOWNLOAD 📥', url=urls[1])]]) #Download Link
         )
     except FloodWait as e:
         print(f"Sleeping for {str(e.x)}s")
@@ -136,7 +139,7 @@ async def channel_receive_handler(bot, broadcast):
         log_msg = await broadcast.forward(chat_id=Var.BIN_CHANNEL)
         stream_link = f"{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
         online_link = f"{Var.URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-        urls = shorten_url([stream_link,online_link])#short
+        # urls = shorten_url([stream_link,online_link])#short
         await log_msg.reply_text(
             text=f"**Channel Name:** `{broadcast.chat.title}`\n**CHANNEL ID:** `{broadcast.chat.id}`\n**STREAM URL:** {stream_link}\n**DOWNLOAD URL:** {online_link}",
             quote=True
@@ -146,8 +149,8 @@ async def channel_receive_handler(bot, broadcast):
             message_id=broadcast.id,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("🖥STREAM ", url=urls[0]),
-                     InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=urls[1])] 
+                    [InlineKeyboardButton("STREAM 🖥", url=stream_link), #Stream Link
+                    InlineKeyboardButton('DOWNLOAD 📥', url=online_link)] 
                 ]
             )
         )
