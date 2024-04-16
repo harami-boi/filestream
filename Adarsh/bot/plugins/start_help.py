@@ -16,22 +16,22 @@ from pyrogram.types import ReplyKeyboardMarkup
 if MY_PASS:
     buttonz = ReplyKeyboardMarkup(
         [
-            ["start⚡️", "help📚", "login🔑", "DC"],
-            ["follow❤️", "ping📡", "status📊", "maintainers😎"]
+            ["start", "help", "login", "DC"],
+            ["ping", "status""]
         ],
         resize_keyboard=True
     )
 else:
     buttonz = ReplyKeyboardMarkup(
         [
-            ["start⚡️", "help📚", "DC"],
-            ["follow❤️", "ping📡", "status📊", "maintainers😎"]
+            ["start", "help", "DC"],
+            ["ping", "status"]
         ],
         resize_keyboard=True
     )
 
 
-@StreamBot.on_message((filters.command("start") | filters.regex('start⚡️')) & filters.private)
+@StreamBot.on_message((filters.command("start") | filters.regex('start')) & filters.private)
 async def start(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
@@ -52,11 +52,11 @@ async def start(bot, message):
         except UserNotParticipant:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="<i>Join CHANNEL to use me🔐</i>",
+                text="<i>Join CHANNEL to use me</i>",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("Join now 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                            InlineKeyboardButton("Join now ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
@@ -66,7 +66,7 @@ async def start(bot, message):
         except Exception:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="<i>Something went wrong</i> <b><a href='https://github.com/adarsh-goel'>CLICK HERE FOR SUPPORT </a></b>",
+                text="Something went wrong",
                 disable_web_page_preview=True)
             return
     await bot.send_message(
@@ -76,7 +76,7 @@ async def start(bot, message):
     )
 
 
-@StreamBot.on_message((filters.command("help") | filters.regex('help📚')) & filters.private)
+@StreamBot.on_message((filters.command("help") | filters.regex('help')) & filters.private)
 async def help_handler(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
@@ -97,11 +97,11 @@ async def help_handler(bot, message):
         except UserNotParticipant:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="<i>Join CHANNEL to use me🔐</i>",
+                text="<i>Join CHANNEL to use me</i>",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("Join now 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                            InlineKeyboardButton("Join now", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
