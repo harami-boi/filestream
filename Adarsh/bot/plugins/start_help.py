@@ -17,7 +17,7 @@ if MY_PASS:
     buttonz = ReplyKeyboardMarkup(
         [
             ["start", "help", "login", "DC"],
-            ["ping", "status""]
+            ["ping", "status"]
         ],
         resize_keyboard=True
     )
